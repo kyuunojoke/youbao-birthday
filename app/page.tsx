@@ -17,14 +17,33 @@ const wishes = [
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [wishMade, setWishMade] = useState(false)
+  const [confetti, setConfetti] = useState<number[]>([])
 
   function celebrate() {
     setOpen(true)
   }
 
+  function makeWish() {
+    setWishMade(true)
+    setConfetti(Array.from({ length: 45 }, (_, i) => i))
+    window.setTimeout(() => setConfetti([]), 3500)
+  }
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <div className="pointer-events-none fixed inset-0 grain opacity-40" />
+      {confetti.map((i) => (
+        <i
+          key={i}
+          className="confetti-piece"
+          style={{
+            left: `${(i * 37) % 100}%`,
+            ["--x" as string]: `${((i * 83) % 220) - 110}px`,
+            ["--d" as string]: `${2 + ((i * 17) % 15) / 10}s`,
+            opacity: 0.5 + ((i * 13) % 50) / 100,
+          }}
+        />
+      ))}
 
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
@@ -108,9 +127,8 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-24 md:grid-cols-2 md:px-8 md:py-28">
           <div><p className="mb-3 text-sm text-primary">One last thing</p><h2 className="display max-w-lg text-5xl font-semibold leading-[.95] tracking-tight text-foreground md:text-7xl">Make a wish before you go.</h2></div>
           <div className="flex flex-col items-start justify-center">
-            <button onClick={() => setWishMade(true)} className="group relative mb-6 grid h-40 w-40 place-items-center rounded-full border border-primary/20 bg-card shadow-sm transition hover:scale-105 hover:border-primary/40" aria-label="Make a birthday wish">
-              <CakeSlice className={`size-16 text-primary transition-all ${wishMade ? "scale-90 opacity-50" : "group-hover:rotate-6"}`} />
-              {!wishMade && <span className="absolute -top-2 right-3 size-4 animate-pulse rounded-full bg-primary shadow-[0_0_24px_var(--primary)]" />}
+            <button onClick={makeWish} className="group relative mb-6 border-0 bg-transparent p-0 outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-primary/50" aria-label="Make a birthday wish">
+              <CakeSlice className={`size-32 text-primary md:size-40 transition-all ${wishMade ? "scale-95" : "group-hover:rotate-3"}`} strokeWidth={1.5} />
             </button>
             <p className="max-w-md text-muted-foreground">{wishMade ? "Wish made. I hope this one finds you. ✨" : "Tap the cake, close your eyes for a second, and make it a good one."}</p>
             <Button className="mt-7" asChild><a href="https://www.tiktok.com/@xclusv.lozu" target="_blank" rel="noreferrer">TikTok @xclusv.lozu <ExternalLink /></a></Button>
