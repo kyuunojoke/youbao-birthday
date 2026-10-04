@@ -11,6 +11,8 @@
   "dependencies": {
     "@radix-ui/react-dialog": "latest",
     "@radix-ui/react-slot": "latest",
+    "@radix-ui/react-toggle": "latest",
+    "balloons-js": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
     "lucide-react": "latest",
