@@ -104,16 +104,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-foreground text-background">
+      <section className="border-t border-border bg-background">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-24 md:grid-cols-2 md:px-8 md:py-28">
-          <div><p className="mb-3 text-sm text-background/55">One last thing</p><h2 className="display max-w-lg text-5xl font-semibold leading-[.95] tracking-tight md:text-7xl">Make a wish before you go.</h2></div>
+          <div><p className="mb-3 text-sm text-primary">One last thing</p><h2 className="display max-w-lg text-5xl font-semibold leading-[.95] tracking-tight text-foreground md:text-7xl">Make a wish before you go.</h2></div>
           <div className="flex flex-col items-start justify-center">
-            <button onClick={() => setWishMade(true)} className="group relative mb-6 grid h-40 w-40 place-items-center rounded-full border border-background/20 bg-background/5 transition hover:scale-105 hover:bg-background/10" aria-label="Make a birthday wish">
-              <CakeSlice className={`size-16 transition-all ${wishMade ? "scale-90 opacity-50" : "group-hover:rotate-6"}`} />
+            <button onClick={() => setWishMade(true)} className="group relative mb-6 grid h-40 w-40 place-items-center rounded-full border border-primary/20 bg-card shadow-sm transition hover:scale-105 hover:border-primary/40" aria-label="Make a birthday wish">
+              <CakeSlice className={`size-16 text-primary transition-all ${wishMade ? "scale-90 opacity-50" : "group-hover:rotate-6"}`} />
               {!wishMade && <span className="absolute -top-2 right-3 size-4 animate-pulse rounded-full bg-primary shadow-[0_0_24px_var(--primary)]" />}
             </button>
-            <p className="max-w-md text-background/65">{wishMade ? "Wish made. I hope this one finds you. ✨" : "Tap the cake, close your eyes for a second, and make it a good one."}</p>
-            <Button className="mt-7 border-background/20 bg-background text-foreground hover:bg-background/90" asChild><a href="https://www.tiktok.com/@xclusv.lozu" target="_blank" rel="noreferrer">TikTok @xclusv.lozu <ExternalLink /></a></Button>
+            <p className="max-w-md text-muted-foreground">{wishMade ? "Wish made. I hope this one finds you. ✨" : "Tap the cake, close your eyes for a second, and make it a good one."}</p>
+            <Button className="mt-7" asChild><a href="https://www.tiktok.com/@xclusv.lozu" target="_blank" rel="noreferrer">TikTok @xclusv.lozu <ExternalLink /></a></Button>
           </div>
         </div>
       </section>
