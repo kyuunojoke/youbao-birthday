@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { ArrowDown, CakeSlice, Gift, Heart, PartyPopper, ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Balloons, type BalloonsHandle } from "@/components/ui/balloons"
 
 const wishes = [
   { title: "More soft days", text: "May life give you more reasons to smile without trying." },
@@ -17,7 +18,7 @@ const wishes = [
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [wishMade, setWishMade] = useState(false)
-  const [confetti, setConfetti] = useState<number[]>([])
+  const balloonsRef = useRef<BalloonsHandle | null>(null)
 
   function celebrate() {
     setOpen(true)
@@ -25,25 +26,13 @@ export default function Home() {
 
   function makeWish() {
     setWishMade(true)
-    setConfetti(Array.from({ length: 45 }, (_, i) => i))
-    window.setTimeout(() => setConfetti([]), 3500)
+    balloonsRef.current?.launchAnimation()
   }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <div className="pointer-events-none fixed inset-0 grain opacity-40" />
-      {confetti.map((i) => (
-        <i
-          key={i}
-          className="confetti-piece"
-          style={{
-            left: `${(i * 37) % 100}%`,
-            ["--x" as string]: `${((i * 83) % 220) - 110}px`,
-            ["--d" as string]: `${2 + ((i * 17) % 15) / 10}s`,
-            opacity: 0.5 + ((i * 13) % 50) / 100,
-          }}
-        />
-      ))}
+      <Balloons ref={balloonsRef} className="pointer-events-none fixed inset-0 z-50" />
 
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
